@@ -3,6 +3,8 @@ import argparse
 import logging
 import os
 import os.path as osp
+import sys
+sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
 
 from mmengine.config import Config, DictAction
 from mmengine.logging import print_log

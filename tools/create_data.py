@@ -1,6 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
-from os import path as osp
+import os.path as osp
+import sys
+sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
 
 from tools.dataset_converters import indoor_converter as indoor
 from tools.dataset_converters import kitti_converter as kitti
@@ -75,16 +77,16 @@ def nuscenes_data_prep(root_path,
         root_path, info_prefix, version=version, max_sweeps=max_sweeps)
 
     if version == 'v1.0-test':
-        info_test_path = osp.join(out_dir, f'{info_prefix}_infos_test.pkl')
+        info_test_path = osp.join(root_path, f'{info_prefix}_infos_test.pkl')
         update_pkl_infos('nuscenes', out_dir=out_dir, pkl_path=info_test_path)
         return
 
-    info_train_path = osp.join(out_dir, f'{info_prefix}_infos_train.pkl')
-    info_val_path = osp.join(out_dir, f'{info_prefix}_infos_val.pkl')
+    info_train_path = osp.join(root_path, f'{info_prefix}_infos_train.pkl')
+    info_val_path = osp.join(root_path, f'{info_prefix}_infos_val.pkl')
     update_pkl_infos('nuscenes', out_dir=out_dir, pkl_path=info_train_path)
     update_pkl_infos('nuscenes', out_dir=out_dir, pkl_path=info_val_path)
     create_groundtruth_database(dataset_name, root_path, info_prefix,
-                                f'{info_prefix}_infos_train.pkl')
+                                osp.abspath(osp.join(out_dir, f'{info_prefix}_infos_train.pkl')))
 
 
 def lyft_data_prep(root_path, info_prefix, version, max_sweeps=10):

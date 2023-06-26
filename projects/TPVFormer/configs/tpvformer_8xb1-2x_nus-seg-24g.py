@@ -277,13 +277,13 @@ model = dict(
         tpv_h=tpv_h_,
         tpv_w=tpv_w_,
         tpv_z=tpv_z_,
-        num_layers=5,
+        num_layers=3,  # change for 24G memory
         pc_range=point_cloud_range,
         num_points_in_pillar=num_points_in_pillar,
         num_points_in_pillar_cross_view=[16, 16, 16],
         return_intermediate=False,
         transformerlayers=[
-            self_cross_layer, self_cross_layer, self_cross_layer, self_layer,
+            self_cross_layer, self_layer,
             self_layer
         ],
         embed_dims=_dim_,
